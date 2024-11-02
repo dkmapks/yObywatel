@@ -59,32 +59,48 @@ document.querySelector(".borndate").innerHTML = borndate.toUpperCase();
 // document.querySelector(".id_own_image").style.backgroundImage = "url('" + image + "')";
 
 // Load saved image from localStorage (if any) and set it as the background
-const savedImage = localStorage.getItem('profileImage');
-if (savedImage) {
-  document.querySelector('.id_own_image').style.backgroundImage = `url('${savedImage}')`;
-} else {
-  document.addEventListener('DOMContentLoaded', (event) => {
-    getImageFromIndexedDB((imageDataUrl) => {
-        document.querySelector('.id_own_image').style.backgroundImage = `url('${imageDataUrl}')`;
-    });
-});
-}
-function getImageFromIndexedDB(callback) {
+// const savedImage = localStorage.getItem('profileImage');
+// if (savedImage) {
+
+//   getImageFromIndexedDB((imageDataUrl) => {
+//     document.querySelector('.id_own_image').style.backgroundImage = `url('${imageDataUrl}')`;
+//   });
+
+// }
+
+function getImageFromIndexedDB() {
   const request = indexedDB.open("PWAStorage", 1);
 
   request.onsuccess = (event) => {
     const db = event.target.result;
     const transaction = db.transaction("images", "readonly");
     const store = transaction.objectStore("images");
-    const imageRequest = store.get("profileImage");
+    const getRequest = store.get("profileImage");
 
-    imageRequest.onsuccess = () => {
-      if (imageRequest.result) {
-        callback(imageRequest.result.data);
+    getRequest.onsuccess = () => {
+      if (getRequest.result) {
+        console.log("Retrieved image from IndexedDB:", getRequest.result.data);
+        document.querySelector('.id_own_image').style.backgroundImage = `url('${getRequest.result.data}')`;
+      } else {
+        console.log("No image found in IndexedDB.");
       }
     };
+
+    getRequest.onerror = (err) => {
+      console.error("Error retrieving image from IndexedDB:", err);
+    };
+  };
+
+  request.onerror = (err) => {
+    console.error("Error opening IndexedDB:", err);
   };
 }
+
+// Call this function on page load to retrieve and display the image
+document.addEventListener('DOMContentLoaded', (event) => {
+  getImageFromIndexedDB();
+});
+
 
 
 
