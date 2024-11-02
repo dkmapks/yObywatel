@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="index.css">
-    <link rel="icon" type="image/x-icon" href="https://play-lh.googleusercontent.com/_TNbiYKasPy_isTSEg2_UEzVaev4F8fO2lLunsHJ8_Ux2g3OzkSZyzpqvJG1woSj-WD4=w240-h480-rw">
+    <link rel="icon" type="image/x-icon" href="/assets/images/icon.webp">
     <title>mObywatel</title>
     <meta name="viewport" content="width=device-width, initial-scale=0.5">
 </head>
@@ -43,7 +43,6 @@
                     reader.onload = function(e) {
                         const imageDataUrl = e.target.result;
                         localStorage.setItem('profileImage', imageDataUrl);
-                        // document.querySelector('.id_own_image').style.backgroundImage = `url('${imageDataUrl}')`; // Set as background
                     };
                     reader.readAsDataURL(file);
                 }
