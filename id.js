@@ -17,13 +17,13 @@ var pesel = params.get("pesel");
 
 
 
-function hideAddressBar(){
-  if(document.documentElement.scrollHeight<window.outerHeight/window.devicePixelRatio)
-    document.documentElement.style.height=(window.outerHeight/window.devicePixelRatio)+'px';
-  setTimeout(window.scrollTo(1,1),0);
+function hideAddressBar() {
+  if (document.documentElement.scrollHeight < window.outerHeight / window.devicePixelRatio)
+    document.documentElement.style.height = (window.outerHeight / window.devicePixelRatio) + 'px';
+  setTimeout(window.scrollTo(1, 1), 0);
 }
-window.addEventListener("load",function(){hideAddressBar();});
-window.addEventListener("orientationchange",function(){hideAddressBar();});
+window.addEventListener("load", function () { hideAddressBar(); });
+window.addEventListener("orientationchange", function () { hideAddressBar(); });
 
 let webManifest = {
   "name": "",
@@ -34,15 +34,15 @@ let webManifest = {
 };
 
 window.addEventListener(
-    "touchmove",
-    function (event) {
-      if (event.scale !== 1) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-      }
-    },
-    { passive: false }
-  );
+  "touchmove",
+  function (event) {
+    if (event.scale !== 1) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+  },
+  { passive: false }
+);
 
 let manifestElem = document.createElement('link');
 manifestElem.setAttribute('rel', 'manifest');
@@ -61,22 +61,46 @@ document.querySelector(".borndate").innerHTML = borndate.toUpperCase();
 // Load saved image from localStorage (if any) and set it as the background
 const savedImage = localStorage.getItem('profileImage');
 if (savedImage) {
-    document.querySelector('.id_own_image').style.backgroundImage = `url('${savedImage}')`;
+  document.querySelector('.id_own_image').style.backgroundImage = `url('${savedImage}')`;
+} else {
+  document.addEventListener('DOMContentLoaded', (event) => {
+    getImageFromIndexedDB((imageDataUrl) => {
+        document.querySelector('.id_own_image').style.backgroundImage = `url('${imageDataUrl}')`;
+    });
+});
 }
+function getImageFromIndexedDB(callback) {
+  const request = indexedDB.open("PWAStorage", 1);
+
+  request.onsuccess = (event) => {
+    const db = event.target.result;
+    const transaction = db.transaction("images", "readonly");
+    const store = transaction.objectStore("images");
+    const imageRequest = store.get("profileImage");
+
+    imageRequest.onsuccess = () => {
+      if (imageRequest.result) {
+        callback(imageRequest.result.data);
+      }
+    };
+  };
+}
+
+
 
 var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
 var date = new Date();
 document.querySelector(".bottom_update_value").innerHTML = date.toLocaleDateString("pl-PL", options);
 
 setClock();
-function setClock(){
-    date = new Date();
-    time.innerHTML = "Czas: " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + date.toLocaleDateString("pl-PL", options);    
-    delay(1000).then(() => {
-        setClock();
-    })
+function setClock() {
+  date = new Date();
+  time.innerHTML = "Czas: " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + date.toLocaleDateString("pl-PL", options);
+  delay(1000).then(() => {
+    setClock();
+  })
 }
 
 function delay(time) {
-    return new Promise(resolve => setTimeout(resolve, time));
+  return new Promise(resolve => setTimeout(resolve, time));
 }

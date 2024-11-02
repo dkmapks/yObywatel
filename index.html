@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="stylesheet" href="index.css">
     <link rel="icon" type="image/x-icon" href="/assets/images/icon.webp">
     <title>mObywatel</title>
     <meta name="viewport" content="width=device-width, initial-scale=0.5">
 </head>
+
 <body>
     <p class="logo_text">yObywatel</p>
 
     <input class="classic_input firstname" placeholder="Imię">
     <input class="classic_input surname" placeholder="Nazwisko">
-    
+
     <!-- Add a file input for uploading an image -->
     <input type="file" class="classic_input image-upload" accept="image/*">
 
@@ -36,11 +38,14 @@
 
             // Handle image upload and save to localStorage
             const imageUploadInput = document.querySelector('.image-upload');
-            imageUploadInput.addEventListener('change', function(event) {
+            imageUploadInput.addEventListener('change', function (event) {
                 const file = event.target.files[0];
+                
+                storeImageInIndexedDB(file);
+
                 if (file) {
                     const reader = new FileReader();
-                    reader.onload = function(e) {
+                    reader.onload = function (e) {
                         const imageDataUrl = e.target.result;
                         localStorage.setItem('profileImage', imageDataUrl);
                     };
@@ -48,22 +53,39 @@
                 }
             });
 
+            function storeImageInIndexedDB(imageDataUrl) {
+                const request = indexedDB.open("PWAStorage", 1);
+
+                request.onupgradeneeded = (event) => {
+                    const db = event.target.result;
+                    db.createObjectStore("images", { keyPath: "id" });
+                };
+
+                request.onsuccess = (event) => {
+                    const db = event.target.result;
+                    const transaction = db.transaction("images", "readwrite");
+                    const store = transaction.objectStore("images");
+                    store.put({ id: "profileImage", data: imageDataUrl });
+                };
+            }
+
             // Handle button click to pass parameters via URL
             document.querySelector(".go").addEventListener('click', () => {
                 const firstname = document.querySelector(".firstname").value;
                 const surname = document.querySelector(".surname").value;
                 const borndate = document.querySelector(".borndate").value;
                 const pesel = document.querySelector(".pesel").value;
-                
+
                 const params = new URLSearchParams();
                 params.set("firstname", firstname);
                 params.set("surname", surname);
                 params.set("borndate", borndate);
                 params.set("pesel", pesel);
-                
+
                 location.href = "/yObywatel/id?" + params.toString();
             });
         });
     </script>
 </body>
+
 </html>
