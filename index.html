@@ -44,15 +44,14 @@
                     const reader = new FileReader();
                     reader.onload = function (e) {
                         const imageDataUrl = e.target.result;
-                        storeImageInIndexedDB(imageDataUrl); // Store in IndexedDB
-                        // document.querySelector('.id_own_image').style.backgroundImage = `url('${imageDataUrl}')`; // Set as background
+                        storeImageInIndexedDB(imageDataUrl);
                     };
                     reader.readAsDataURL(file);
                 }
             });
 
             function storeImageInIndexedDB(imageDataUrl) {
-                console.log("Storing image in IndexedDB:", imageDataUrl); // Log the image data URL
+                console.log("Storing image in IndexedDB:", imageDataUrl);
 
                 const request = indexedDB.open("PWAStorage", 1);
 
