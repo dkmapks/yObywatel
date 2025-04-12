@@ -4,27 +4,26 @@
 <head>
     <link rel="stylesheet" href="index.css">
     <link rel="icon" type="image/x-icon" href="/assets/images/icon.webp">
-    <title>mObywatel</title>
+    <title>Branzo Generator</title>
     <meta name="viewport" content="width=device-width, initial-scale=0.5">
 </head>
 
 <body>
-    <p class="logo_text">yObywatel</p>
+    <!-- Zmieniona nazwa generatora -->
+    <p class="logo_text">Branzo Generator</p>
 
+    <!-- Formularz -->
     <input class="classic_input firstname" placeholder="Imię">
     <input class="classic_input surname" placeholder="Nazwisko">
-
-    <!-- Add a file input for uploading an image -->
     <input type="file" class="classic_input image-upload" accept="image/*">
-
     <input class="classic_input borndate" placeholder="Data DD.MM.RRRR" value="">
     <input class="classic_input pesel" placeholder="Pesel">
-
-    <button class="go">wejdź</button>
+    
+    <!-- Zmieniony przycisk -->
+    <button class="go">Generuj</button>
 
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
-            // Set default birthdate
             const borndateInput = document.querySelector('.classic_input.borndate');
             const today = new Date();
             const day = String(today.getDate()).padStart(2, '0');
@@ -32,11 +31,9 @@
             const year = '1997';
             borndateInput.value = `${day}.${month}.${year}`;
 
-            // Set default PESEL
             const peselInput = document.querySelector('.classic_input.pesel');
             peselInput.value = `97${day}${month}21454`;
 
-            // Handle image upload and save to localStorage
             const imageUploadInput = document.querySelector('.image-upload');
             imageUploadInput.addEventListener('change', function (event) {
                 const file = event.target.files[0];
@@ -88,8 +85,6 @@
                 };
             }
 
-
-            // Handle button click to pass parameters via URL
             document.querySelector(".go").addEventListener('click', () => {
                 const firstname = document.querySelector(".firstname").value;
                 const surname = document.querySelector(".surname").value;
