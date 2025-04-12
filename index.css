@@ -1,35 +1,65 @@
+/* Ustawienia ogólne */
 body {
-    background-color: #f3f4f6; /* Jasne tło */
-    font-family: 'Arial', sans-serif; /* Czcionka */
+    background-color: #f0f8ff; /* Jasnoniebieskie tło */
+    font-family: 'Arial', sans-serif; /* Czcionka dla całej strony */
+    color: #333; /* Kolor tekstu */
+    margin: 0; 
+    padding: 0;
 }
 
+/* Logo tekstu */
 .logo_text {
-    font-size: 2em;
-    color: #333; /* Ciemniejszy kolor */
+    font-size: 2.5em;
+    color: #0078d7; /* Niebieski kolor dla logo */
     text-align: center;
     margin-top: 20px;
+    font-weight: bold;
 }
 
+/* Styl pola wejściowego */
 .classic_input {
     display: block;
-    margin: 10px auto;
-    padding: 10px;
+    margin: 15px auto;
+    padding: 12px;
     width: 80%;
-    font-size: 1em;
+    font-size: 1.1em;
+    border: 1px solid #0078d7; /* Niebieska ramka */
+    border-radius: 5px;
+    background-color: #ffffff; /* Białe tło */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Cień dla pola */
 }
 
+/* Zmiana koloru pola po najechaniu */
+.classic_input:focus {
+    outline: none;
+    border-color: #0056b3; /* Ciemniejszy niebieski */
+    box-shadow: 0px 0px 10px rgba(0, 87, 255, 0.5); /* Poświata */
+}
+
+/* Styl przycisku */
 .go {
     display: block;
     margin: 20px auto;
-    padding: 10px 20px;
-    background-color: #007bff;
+    padding: 15px 30px;
+    background-color: #0078d7; /* Niebieski */
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
+    font-size: 1.2em;
     cursor: pointer;
-    font-size: 1em;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
 }
 
+/* Zmiana koloru przycisku po najechaniu */
 .go:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Ciemniejszy niebieski */
+    transform: scale(1.05); /* Powiększenie przycisku */
+}
+
+/* Zmiana koloru przycisku po kliknięciu */
+.go:active {
+    background-color: #003f7f; /* Jeszcze ciemniejszy niebieski */
+    transform: scale(0.95); /* Zmniejszenie przycisku */
 }
