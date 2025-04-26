@@ -1,106 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pl">
 <head>
-    <link rel="stylesheet" href="index.css">
-    <link rel="icon" type="image/x-icon" href="/assets/images/icon.webp">
-    <title>Branzo Generator</title>
-    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <title>mObywatel</title>
+  
+  <link rel="stylesheet" href="id.css?v=1.0">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/images/gC8DDHD.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/images/gC8DDHD.png">
 </head>
 
 <body>
-    <!-- Zmieniona nazwa generatora -->
-    <p class="logo_text">Branzo Generator</p>
+  <div class="top_grid">
+    <div class="action_grid">
+      <img src="assets/images/MBLAM9x.png" class="back_img" alt="Powrót">
+      <p class="back_text">Wróć</p>
+    </div>
+    <p class="title_text">mDowód</p>
+    <img src="assets/images/YQ6jvg7.png" class="help_img" alt="Pomoc">
+  </div>
 
-    <!-- Formularz -->
-    <input class="classic_input firstname" placeholder="Imię">
-    <input class="classic_input surname" placeholder="Nazwisko">
-    <input type="file" class="classic_input image-upload" accept="image/*">
-    <input class="classic_input borndate" placeholder="Data DD.MM.RRRR" value="">
-    <input class="classic_input pesel" placeholder="Pesel">
-    
-    <!-- Zmieniony przycisk -->
-    <button class="go">Generuj</button>
+  <p class="time_text"></p>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const borndateInput = document.querySelector('.classic_input.borndate');
-            const today = new Date();
-            const day = String(today.getDate()).padStart(2, '0');
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const year = '1997';
-            borndateInput.value = `${day}.${month}.${year}`;
+  <div class="id_image_data">
+    <img draggable="false" class="id_image" src="assets/images/JnrzClA.png" alt="Zdjęcie dokumentu">
+    <div class="id_own_image"></div>
+    <video muted playsinline loop class="flag_video" autoplay>
+      <source src="assets/video/izbpCqH.mp4" type="video/mp4">
+    </video>
 
-            const peselInput = document.querySelector('.classic_input.pesel');
-            peselInput.value = `97${day}${month}21454`;
+    <div class="id_data_grid">
+      <div class="data_holder">
+        <p class="data_title firstname"></p>
+        <p class="data_value">Imię (imiona)</p>
+      </div>
+      <div class="data_holder">
+        <p class="data_title surname"></p>
+        <p class="data_value">Nazwisko</p>
+      </div>
+      <div class="data_holder">
+        <p class="data_title">POLSKIE</p>
+        <p class="data_value">Obywatelstwo</p>
+      </div>
+      <div class="data_holder">
+        <p class="data_title borndate"></p>
+        <p class="data_value">Data urodzenia</p>
+      </div>
+      <div class="data_holder">
+        <p class="data_title pesel"></p>
+        <p class="data_value">Numer PESEL</p>
+      </div>
+    </div>
+  </div>
 
-            const imageUploadInput = document.querySelector('.image-upload');
-            imageUploadInput.addEventListener('change', function (event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        const imageDataUrl = e.target.result;
-                        storeImageInIndexedDB(imageDataUrl);
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
+  <div class="id_bottom">
+    <div class="bottom_grid">
+      <img class="bottom_image" src="assets/images/5S1bgPj.png" alt="Dokument ważny">
+      <p class="bottom_text green">Dokument ważny</p>
+    </div>
+  </div>
 
-            function storeImageInIndexedDB(imageDataUrl) {
-                console.log("Storing image in IndexedDB:", imageDataUrl);
+  <div class="other_grid">
+    <div class="bottom_holder">
+      <div class="bottom_grid">
+        <img src="assets/images/xUBD93p.png" class="bottom_image" alt="Potwierdź dane">
+        <p class="bottom_text">Potwierdź swoje dane</p>
+      </div>
+      <img class="action_arrow" src="assets/images/aUZmu0W.png" alt="Strzałka">
+    </div>
 
-                const request = indexedDB.open("PWAStorage", 1);
+    <div class="bottom_holder">
+      <div class="bottom_grid">
+        <img src="assets/images/4MOtjzn.png" class="bottom_image" alt="Dane dokumentu">
+        <p class="bottom_text">Dane dokumentu</p>
+      </div>
+      <img class="action_arrow" src="assets/images/aUZmu0W.png" alt="Strzałka">
+    </div>
 
-                request.onupgradeneeded = (event) => {
-                    const db = event.target.result;
-                    if (!db.objectStoreNames.contains("images")) {
-                        db.createObjectStore("images", { keyPath: "id" });
-                        console.log("Object store 'images' created.");
-                    }
-                };
+    <div class="bottom_holder" style="height: 70px;">
+      <div class="bottom_grid">
+        <p class="bottom_text">Twoje dodatkowe dane</p>
+      </div>
+      <img class="action_arrow" src="assets/images/aUZmu0W.png" alt="Strzałka" style="rotate: 90deg;">
+    </div>
 
-                request.onsuccess = (event) => {
-                    const db = event.target.result;
-                    const transaction = db.transaction("images", "readwrite");
+    <div class="bottom_holder" style="height: 90px;">
+      <div class="bottom_update">
+        <div class="bottom_update_grid">
+          <p class="bottom_update_text">Ostatnia aktualizacja</p>
+          <p class="bottom_update_value">--</p>
+        </div>
+        <button class="bottom_update_button">Aktualizuj</button>
+      </div>
+    </div>
 
-                    transaction.onerror = (err) => {
-                        console.error("Transaction error:", err);
-                    };
+    <div class="bottom_holder" style="height: 70px; margin-bottom: 120px;">
+      <div class="bottom_grid">
+        <img src="assets/images/Ps3o2jv.png" class="bottom_image" alt="Usuń dokument">
+        <p class="bottom_text red">Usuń dokument</p>
+      </div>
+    </div>
+  </div>
 
-                    const store = transaction.objectStore("images");
-                    const putRequest = store.put({ id: "profileImage", data: imageDataUrl });
+  <div class="bottom_bar">
+    <div class="bottom_bar_grid">
+      <div class="bottom_element_grid">
+        <img class="bottom_element_image" src="assets/images/GdbE1uc.png" alt="Pulpit">
+        <p class="bottom_element_text">Pulpit</p>
+      </div>
+      <div class="bottom_element_grid">
+        <img class="bottom_element_image" src="assets/images/5Jn7WC3.png" alt="Dokumenty">
+        <p class="bottom_element_text">Dokumenty</p>
+      </div>
+      <div class="bottom_element_grid">
+        <img class="bottom_element_image" src="assets/images/wC5lr9l.png" alt="Usługi" style="width: 35px;">
+        <p class="bottom_element_text">Usługi</p>
+      </div>
+      <div class="bottom_element_grid">
+        <img class="bottom_element_image" src="assets/images/FYL95et.png" alt="Kod QR" style="width: 30px;">
+        <p class="bottom_element_text">Kod QR</p>
+      </div>
+      <div class="bottom_element_grid">
+        <img class="bottom_element_image" src="assets/images/oshCIbv.png" alt="Więcej" style="width: 30px;">
+        <p class="bottom_element_text">Więcej</p>
+      </div>
+    </div>
+  </div>
 
-                    putRequest.onsuccess = () => {
-                        console.log("Image stored successfully in IndexedDB.");
-                    };
-
-                    putRequest.onerror = (err) => {
-                        console.error("Error storing image in IndexedDB:", err);
-                    };
-                };
-
-                request.onerror = (err) => {
-                    console.error("Error opening IndexedDB:", err);
-                };
-            }
-
-            document.querySelector(".go").addEventListener('click', () => {
-                const firstname = document.querySelector(".firstname").value;
-                const surname = document.querySelector(".surname").value;
-                const borndate = document.querySelector(".borndate").value;
-                const pesel = document.querySelector(".pesel").value;
-
-                const params = new URLSearchParams();
-                params.set("firstname", firstname);
-                params.set("surname", surname);
-                params.set("borndate", borndate);
-                params.set("pesel", pesel);
-
-                location.href = "/yObywatel/id?" + params.toString();
-            });
-        });
-    </script>
+  <script src="id.js?v=1.0"></script>
 </body>
-
 </html>
